@@ -1,12 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Counter from "./Counter/Counter";
-import m from './App.module.css'
+
 
 
 function App() {
+
+    let [value, setValue] = useState<number>(0)
+
+    function incValue() {
+        let n = value
+        if (n < 5) {
+            setValue(n + 1)
+        }
+        return n
+    }
+
+    function resetValue() {
+        setValue(0)
+    }
+
   return (
     <div>
-        <Counter/>
+        <Counter value={value} incValue={incValue} resetValue={resetValue}/>
     </div>
   );
 }
