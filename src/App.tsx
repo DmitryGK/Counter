@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Counter from "./Counter/Counter";
+import {Settings} from "./Settings/Settings";
 
 
 
@@ -14,7 +15,6 @@ function App() {
         }
         return n
     }
-
     function resetValue() {
         setValue(0)
     }
@@ -22,6 +22,7 @@ function App() {
   return (
     <div>
         <Counter value={value} incValue={incValue} resetValue={resetValue}/>
+        <Settings/>
     </div>
   );
 }
