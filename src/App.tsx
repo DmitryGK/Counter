@@ -1,47 +1,54 @@
 import React, {useState} from 'react';
-import Counter from "./Counter/Counter";
-import {Settings} from "./Settings/Settings";
+import {Settings} from "./Components/Settings/Settings";
+import {MainDisplay} from "./Components/MainDisplay/MainDisplay";
+import a from './App.module.css'
 
+export function App() {
 
-function App() {
+    const [value, setValue] = useState(0)
+    const [startValue, setStartValue] = useState(0)
+    const [maxValue, setMaxValue] = useState(0)
 
-    let [value, setValue] = useState<number>(0)
-    let [maxValue, setMaxValue] = useState(5)
-    let [startValue, setStartValue] = useState(0)
+    const changeStartValue = (startValue: number) => {
+        setStartValue(startValue)
 
-    function incValue() {
-        let n = value
-        if (n < maxValue) {
-            setValue(n + 1)
+    }
+    const changeMaxValue = (maxValue: number) => {
+        setMaxValue(maxValue)
+    }
+    const incValue = (v: number) => {
+        if(v < maxValue) {
+            setValue(v+1)
         }
-        return n
     }
-    function resetValue() {
-        setValue(0)
+    const resetValue = (v: number) => {
+        if(v > startValue){
+            setValue(startValue)
+        }
     }
-
-    function changeMaxValue(newValue:number) {
-        setMaxValue(newValue)
+    const mainValues = (maxValue: number, startValue: number) => {
+        return (
+            changeStartValue(startValue),
+            changeMaxValue(maxValue)
+        )
     }
-
-    function changeStartValue(newValue:number) {
-        setStartValue(newValue)
-    }
-
-
     return (
-        <div>
-            <Counter
-                value={value}
-                incValue={incValue}
-                resetValue={resetValue}/>
-            <Settings setValue={setValue}
-                      setMaxValueNumber={changeMaxValue}
-                      setStartValueNumber={changeStartValue}
-                      />
-
+        <div className={a.main}>
+            <Settings maxValueTitle='max value:'
+                      startValueTitle='start value:'
+                      changeStartValue={changeStartValue}
+                      changeMaxValue={changeMaxValue}
+                      maxValue={maxValue}
+                      startValue={startValue}
+                      mainValues={mainValues}
+            />
+            <MainDisplay value={value}
+                         maxValue={maxValue}
+                         startValue={startValue}
+                         incValue={incValue}
+                         resetValue={resetValue}
+            />
         </div>
-    );
+    )
 }
 
-export default App;

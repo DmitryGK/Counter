@@ -1,0 +1,32 @@
+.parent {
+    background-color: dimgrey;
+    border: white 3px solid;
+    border-radius: 5px;
+    margin: 20px;
+    width: 480px;
+    height: 320px;
+
+
+}
+
+.display {
+    font-size: 80px;
+    color: white;
+    border: white 2px solid;
+    border-radius: 5px;
+    height: 180px;
+    margin: 10px;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.buttons {
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    border: white 2px solid;
+    border-radius: 5px;
+    height: 100px;
+    margin: 10px;
+}

@@ -1,4 +1,7 @@
-.app {
-
-
+.main {
+    margin-top: 200px;
+    background-color: dimgrey;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
 }
