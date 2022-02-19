@@ -14,7 +14,7 @@ export const Input = (props: InputPropsType) => {
 
     const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(parseFloat(e.currentTarget.value))
-        props.onChange(value + 1)
+        props.onChange(value)
     }
     return (
         <div>

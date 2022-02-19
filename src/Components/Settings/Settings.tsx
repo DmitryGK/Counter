@@ -8,17 +8,20 @@ type SettingsPropsType = {
     startValueTitle: string
     changeStartValue: (startValue: number) => void
     changeMaxValue:(maxValue: number) => void
-    maxValue:number
+    changeValue:(value: number) => void
+    maxValue: number
     startValue: number
-    mainValues: (maxValue: number, startValue: number) => void
+    setError: (value: string | null) => void
+
 }
 
 
 
 export const Settings = (props:SettingsPropsType) => {
 
-
-    const onClickCallback = () => props.mainValues
+    const setValues = () => {
+        props.changeValue(props.startValue)
+    }
 
 
     return (
@@ -28,7 +31,7 @@ export const Settings = (props:SettingsPropsType) => {
                 <Input title={props.startValueTitle} value={props.startValue} onChange={props.changeStartValue}/>
             </div>
             <div className={a.button}>
-                <Button title='set' onClick={onClickCallback}/>
+                <Button title='set' onClick={setValues}/>
             </div>
 
         </div>

@@ -6,13 +6,14 @@ type MainDisplayPropsType = {
     value: number
     incValue:(value:number) => void
     resetValue: (value: number) => void
-    maxValue:number
     startValue:number
+    boolean:boolean
 }
 
 
 
 export const MainDisplay = (props:MainDisplayPropsType) => {
+
 
     const onChangeValue = () => {
         props.incValue(props.value)
@@ -21,15 +22,27 @@ export const MainDisplay = (props:MainDisplayPropsType) => {
         props.resetValue(props.value)
     }
 
-    return (
-        <div className={a.parent}>
+
+
+    return ((props.boolean)
+        ?<div className={a.parent}>
             <div className={a.display}>
-                {props.value}
+                Set values
             </div>
             <div className={a.buttons}>
                 <Button title='inc' onClick={onChangeValue}/>
                 <Button title='reset' onClick={onResetValue}/>
             </div>
         </div>
+            :<div className={a.parent}>
+                <div className={a.display}>
+                    {props.value}
+                </div>
+                <div className={a.buttons}>
+                    <Button title='inc' onClick={onChangeValue}/>
+                    <Button title='reset' onClick={onResetValue}/>
+                </div>
+            </div>
+
     )
 }

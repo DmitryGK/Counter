@@ -8,45 +8,65 @@ export function App() {
     const [value, setValue] = useState(0)
     const [startValue, setStartValue] = useState(0)
     const [maxValue, setMaxValue] = useState(0)
+    const [boolean, setBoolean] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
-    const changeStartValue = (startValue: number) => {
-        setStartValue(startValue)
+
+
+    const changeStartValue = (value: number) => {
+        let newValue = value + 1
+        setBoolean(true)
+        if (newValue < 0 || newValue === maxValue) {
+            setError('invalid value')
+        } setStartValue(newValue)
+        setError(null)
+
 
     }
-    const changeMaxValue = (maxValue: number) => {
-        setMaxValue(maxValue)
+    const changeMaxValue = (value: number) => {
+        let newValue = value + 1
+        setBoolean(true)
+        if (newValue < 0 || newValue === startValue){
+            setError('invalid value')
+        } setMaxValue(newValue)
+        setError(null)
+
+
+
     }
     const incValue = (v: number) => {
-        if(v < maxValue) {
-            setValue(v+1)
+        if (v < maxValue) {
+            setValue(v + 1)
         }
     }
     const resetValue = (v: number) => {
-        if(v > startValue){
+        if (v > startValue) {
             setValue(startValue)
         }
     }
-    const mainValues = (maxValue: number, startValue: number) => {
-        return (
-            changeStartValue(startValue),
-            changeMaxValue(maxValue)
-        )
+    const changeValue = (v: number) => {
+        setValue(startValue)
+        setBoolean(false)
     }
+
+
     return (
         <div className={a.main}>
             <Settings maxValueTitle='max value:'
                       startValueTitle='start value:'
                       changeStartValue={changeStartValue}
                       changeMaxValue={changeMaxValue}
+                      changeValue={changeValue}
                       maxValue={maxValue}
                       startValue={startValue}
-                      mainValues={mainValues}
+                      setError={setError}
             />
             <MainDisplay value={value}
-                         maxValue={maxValue}
                          startValue={startValue}
                          incValue={incValue}
                          resetValue={resetValue}
+                         boolean={boolean}
+
             />
         </div>
     )
