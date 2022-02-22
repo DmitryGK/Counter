@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Settings} from "./Components/Settings/Settings";
 import {MainDisplay} from "./Components/MainDisplay/MainDisplay";
 import a from './App.module.css'
@@ -11,6 +11,18 @@ export function App() {
     const [boolean, setBoolean] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
+    useEffect( () => {
+        let mainValue = localStorage.getItem('value')
+        if (value) {
+            setValue(mainValue)
+        }
+    })
+
+    useEffect( () => {
+        if (value) {
+            localStorage.setItem('value', JSON.stringify(value))
+        }
+    })
 
 
     const changeStartValue = (value: number) => {
@@ -24,7 +36,7 @@ export function App() {
 
     }
     const changeMaxValue = (value: number) => {
-        let newValue = value + 1
+        let newValue = value
         setBoolean(true)
         if (newValue < 0 || newValue === startValue){
             setError('invalid value')
