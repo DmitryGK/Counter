@@ -11,7 +11,6 @@ type SettingsPropsType = {
     changeValue:(value: number) => void
     maxValue: number
     startValue: number
-    setError: (value: string | null) => void
 
 }
 
@@ -31,7 +30,7 @@ export const Settings = (props:SettingsPropsType) => {
                 <Input title={props.startValueTitle} value={props.startValue} onChange={props.changeStartValue}/>
             </div>
             <div className={a.button}>
-                <Button title='set' onClick={setValues}/>
+                <Button title='set' onClick={setValues} />
             </div>
 
         </div>

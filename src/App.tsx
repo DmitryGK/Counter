@@ -33,45 +33,41 @@ export function App() {
 
 
     const changeStartValue = (value: number) => {
-        if (value === 0) {
-            setBoolean(true)
+        if (value > 0) {
             setStartValue(value)
+            setBoolean(true)
+            if (value === maxValue || value > maxValue) {
+                setError('incorrect value')
+            }
+        } else if (value === 0) {
+            setStartValue(value)
+            setBoolean(true)
             setError(null)
         } else if (value < 0) {
-            setBoolean(true)
             setStartValue(value)
-            setError('incorrect number')
-        } else if (value > 0){
             setBoolean(true)
-            setStartValue(value)
-            if(value === maxValue){
-                setError('incorrect number')
-            }
-            setError(null)
+            setError('incorrect value')
         }
     }
-
-
     const changeMaxValue = (value: number) => {
-        if (value === 0) {
+        if (value > 0) {
             setBoolean(true)
             setMaxValue(value)
-            setError(null)
-            if (startValue !== 0) {
-                setMaxValue(value)
+            if (value === startValue || value < startValue) {
                 setError('incorrect number')
+            }
+        } else if (value === 0) {
+            setMaxValue(value)
+            setBoolean(true)
+            if (startValue === 0) {
+                setError(null)
+            } else {
+                setError('incorrect value')
             }
         } else if (value < 0) {
+            setBoolean(true)
             setMaxValue(value)
             setError('incorrect number')
-            setBoolean(true)
-        } else  if (value > 0){
-            setBoolean(true)
-            setMaxValue(value)
-            if(value === startValue) {
-                setError('incorrect number')
-            }
-            setError(null)
         }
     }
     const incValue = (v: number) => {
@@ -84,7 +80,7 @@ export function App() {
             setValue(startValue)
         }
     }
-    const changeValue = (v: number) => {
+    const changeValue = () => {
         setValue(startValue)
         setBoolean(false)
     }
@@ -99,13 +95,13 @@ export function App() {
                       changeValue={changeValue}
                       maxValue={maxValue}
                       startValue={startValue}
-                      setError={setError}
             />
             <MainDisplay value={value}
                          startValue={startValue}
                          incValue={incValue}
                          resetValue={resetValue}
                          boolean={boolean}
+                         error={error}
 
             />
         </div>
