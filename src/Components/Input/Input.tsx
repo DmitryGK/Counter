@@ -1,4 +1,4 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import a from './Input.module.css'
 
 type InputPropsType = {
@@ -10,16 +10,19 @@ type InputPropsType = {
 export const Input = (props: InputPropsType) => {
 
 
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(props.value)
+    useEffect( () => {
+        props.onChange(value)
+    }, [value])
 
     const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(parseFloat(e.currentTarget.value))
-        props.onChange(value)
+
     }
     return (
         <div>
             {props.title}
-            <input type='number' value={value} onChange={onChangeValue} className={a.input}/>
+            <input type='number' value={props.value} onChange={onChangeValue} className={a.input}/>
         </div>
     )
-}
+} 

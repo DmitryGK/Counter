@@ -5,46 +5,74 @@ import a from './App.module.css'
 
 export function App() {
 
-    const [value, setValue] = useState(0)
+    useEffect(() => {
+        let mainValue = localStorage.getItem('counterValue')
+        let lastStartValue = localStorage.getItem('startValue')
+        let lastMaxValue = localStorage.getItem('maxValue')
+        if (mainValue && lastMaxValue && lastStartValue) {
+            let newValue = JSON.parse(mainValue)
+            let newStartValue = JSON.parse(lastStartValue)
+            let newMaxValue = JSON.parse(lastMaxValue)
+            setValue(newValue)
+            setStartValue(newStartValue)
+            setMaxValue(newMaxValue)
+        }
+    }, [])
+
     const [startValue, setStartValue] = useState(0)
     const [maxValue, setMaxValue] = useState(0)
+    const [value, setValue] = useState(startValue)
     const [boolean, setBoolean] = useState(false)
     const [error, setError] = useState<string | null>(null)
-
-    useEffect( () => {
-        let mainValue = localStorage.getItem('value')
-        if (value) {
-            setValue(mainValue)
-        }
-    })
-
-    useEffect( () => {
-        if (value) {
-            localStorage.setItem('value', JSON.stringify(value))
-        }
-    })
+    console.log(error)
+    useEffect(() => {
+        localStorage.setItem('counterValue', JSON.stringify(value))
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    }, [value, maxValue, startValue])
 
 
     const changeStartValue = (value: number) => {
-        let newValue = value + 1
-        setBoolean(true)
-        if (newValue < 0 || newValue === maxValue) {
-            setError('invalid value')
-        } setStartValue(newValue)
-        setError(null)
-
-
+        if (value === 0) {
+            setBoolean(true)
+            setStartValue(value)
+            setError(null)
+        } else if (value < 0) {
+            setBoolean(true)
+            setStartValue(value)
+            setError('incorrect number')
+        } else if (value > 0){
+            setBoolean(true)
+            setStartValue(value)
+            if(value === maxValue){
+                setError('incorrect number')
+            }
+            setError(null)
+        }
     }
+
+
     const changeMaxValue = (value: number) => {
-        let newValue = value
-        setBoolean(true)
-        if (newValue < 0 || newValue === startValue){
-            setError('invalid value')
-        } setMaxValue(newValue)
-        setError(null)
-
-
-
+        if (value === 0) {
+            setBoolean(true)
+            setMaxValue(value)
+            setError(null)
+            if (startValue !== 0) {
+                setMaxValue(value)
+                setError('incorrect number')
+            }
+        } else if (value < 0) {
+            setMaxValue(value)
+            setError('incorrect number')
+            setBoolean(true)
+        } else  if (value > 0){
+            setBoolean(true)
+            setMaxValue(value)
+            if(value === startValue) {
+                setError('incorrect number')
+            }
+            setError(null)
+        }
     }
     const incValue = (v: number) => {
         if (v < maxValue) {
