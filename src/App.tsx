@@ -29,7 +29,7 @@ export function App() {
         localStorage.setItem('counterValue', JSON.stringify(value))
         localStorage.setItem('startValue', JSON.stringify(startValue))
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    }, [value, maxValue, startValue])
+    }, [value, maxValue, startValue,])
 
 
     const changeStartValue = (value: number) => {
@@ -54,7 +54,7 @@ export function App() {
             setBoolean(true)
             setMaxValue(value)
             if (value === startValue || value < startValue) {
-                setError('incorrect number')
+                setError('incorrect value')
             }
         } else if (value === 0) {
             setMaxValue(value)
@@ -67,7 +67,7 @@ export function App() {
         } else if (value < 0) {
             setBoolean(true)
             setMaxValue(value)
-            setError('incorrect number')
+            setError('incorrect value')
         }
     }
     const incValue = (v: number) => {
